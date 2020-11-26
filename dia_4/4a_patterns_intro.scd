@@ -6,7 +6,8 @@ Pbind().play;
 
 CmdPeriod.run; // ou Cmd + . entre os exemplos
 
-Pbind cria um EventStreamPlayer, basicamente um tocador de Pattern
+Pbind cria um EventStreamPlayer, basicamente um tocador de Pattern,
+que por sua vez é feito de Event
 
 Pbind(
     \degree, -7
@@ -72,5 +73,6 @@ ao usá-lo na EnvGen, dentro da sua SynthDef,
 você poderá usar \legato e \sustain
 
 outros argumentos aumágicos ainda sao
-\amp, \pan
-
+\amp, \pan entre outros.
+veja em
+Pbind.help
