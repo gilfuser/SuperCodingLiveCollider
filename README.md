@@ -3,6 +3,9 @@ Workshop introdutório sobre SuperCollider para Codificação ao Vivo
 
 ## Quem quiser é só chegar
 
+[inscreva-se aqui](https://www.eventbrite.com/e/supercodinglivecolider-registration-130839663957?utm-medium=discovery&utm-campaign=social&utm-content=attendeeshare&aff=escb&utm-source=cp&utm-term=listing)<br/>
+ou entre em contato diretamente
+
 ### Como está dito em supercollider.github.io:
 
 > SuperCollider é uma plataforma para síntese de áudio e composição algorítmica, usada por músicos, artistas e pesquisadores que trabalham com som. É um software gratuito e de código aberto disponível para Windows, macOS e Linux
@@ -23,11 +26,11 @@ Agradeco em geral à toda comunidade livecodera do *mailing-list* sc-users. Nenh
 
 ### Aí vao links de referências, dicas e fontes de informacao sobre SuperCollider
 
-*[Uma Gentil Introducao ao SuperCollider](http://docplayer.com.br/33316414-Uma-gentil-introducao-ao-supercollider.html)
-*[versao em inglês(original)](https://ccrma.stanford.edu/~ruviaro/texts/A_Gentle_Introduction_To_SuperCollider.pdf)
-*[A Prectical Guide To Patterns - nao tao gentil quanto o texto de B. Ruviaro, e com algumas sintaxes "deprecadas", mas ainda assim muito bom](http://distractionandnonsense.com/sc/A_Practical_Guide_to_Patterns.pdf)
-*[O Sistema de Ajuda do SC, online](https://doc.sccode.org/)
-*[Muitos exemplos. Alguns funcionam, outros nao](https://sccode.org/)
-*[a série clássica de videoaulas de Eli Fiedsteel](https://www.youtube.com/playlist?list=PLPYzvS8A_rTaNDweXe6PX4CXSGq4iEWYC)
-*[a "nova temporada"](https://www.youtube.com/playlist?list=PLPYzvS8A_rTZmJZjUtMG6GJ2QkLUEaY4Q)
-*[o canal da S4NTP](https://www.youtube.com/channel/UCFRw4fgQb7dqRXuZ5lxwi3g)
+*[Uma Gentil Introducao ao SuperCollider](http://docplayer.com.br/33316414-Uma-gentil-introducao-ao-supercollider.html)<br/>
+*[versao em inglês(original)](https://ccrma.stanford.edu/~ruviaro/texts/A_Gentle_Introduction_To_SuperCollider.pdf)<br/>
+*[A Prectical Guide To Patterns - nao tao gentil quanto o texto de B. Ruviaro, e com algumas sintaxes "deprecadas", mas ainda assim muito bom](http://distractionandnonsense.com/sc/A_Practical_Guide_to_Patterns.pdf)<br/>
+*[O Sistema de Ajuda do SC, online](https://doc.sccode.org/)<br/>
+*[Muitos exemplos. Alguns funcionam, outros nao](https://sccode.org/)<br/>
+*[a série clássica de videoaulas de Eli Fiedsteel](https://www.youtube.com/playlist?list=PLPYzvS8A_rTaNDweXe6PX4CXSGq4iEWYC)<br/>
+*[a "nova temporada"](https://www.youtube.com/playlist?list=PLPYzvS8A_rTZmJZjUtMG6GJ2QkLUEaY4Q)<br/>
+*[o canal da S4NTP](https://www.youtube.com/channel/UCFRw4fgQb7dqRXuZ5lxwi3g)<br/>
