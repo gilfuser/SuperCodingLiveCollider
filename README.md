@@ -26,8 +26,9 @@ Agradeco em geral à toda comunidade livecodera do *mailing-list* sc-users. Nenh
 
 ### Aí vao links de referências, dicas e fontes de informacao sobre SuperCollider
 
-*[Uma Gentil Introducao ao SuperCollider](http://docplayer.com.br/33316414-Uma-gentil-introducao-ao-supercollider.html)<br/>
-*[versao em inglês(original)](https://ccrma.stanford.edu/~ruviaro/texts/A_Gentle_Introduction_To_SuperCollider.pdf)<br/>
+* [Uma Gentil Introducao ao SuperCollider](http://docplayer.com.br/33316414-Uma-gentil-introducao-ao-supercollider.html)<br/>
+* [versao em inglês(original)](https://ccrma.stanford.edu/~ruviaro/texts/A_Gentle_Introduction_To_SuperCollider.pdf)<br/>
+* [inscreva-se na lista de discussao sobre SC. Perguntas de iniciantes sao bem-vindas!](http://www.birmingham.ac.uk/facilities/ea-studios/research/supercollider/mailinglist.aspx)<br/>
 *[A Prectical Guide To Patterns - nao tao gentil quanto o texto de B. Ruviaro, e com algumas sintaxes "deprecadas", mas ainda assim muito bom](http://distractionandnonsense.com/sc/A_Practical_Guide_to_Patterns.pdf)<br/>
 *[O Sistema de Ajuda do SC, online](https://doc.sccode.org/)<br/>
 *[Muitos exemplos. Alguns funcionam, outros nao](https://sccode.org/)<br/>
