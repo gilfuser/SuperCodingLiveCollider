@@ -3,6 +3,7 @@
 //// Para isso, o SuperCollider possui um assim chamado "servidor",
 //// um segundo programa que faz toda a geração de som.
 //// isso geralmente é armazenado na variável global s
+
 s.dump;
 s.boot; // diga ao servidor para iniciar
 s.scope;
@@ -26,9 +27,12 @@ sao entao compiladas e enviadas ao servidor
     // Aqui, somando dois sinais e multiplicando por 0.2
 { SinOsc.ar(300) + Dust.ar(400) * 0.2  }.scope;
 
-	// arrays se tornam canais de audio
+	// arrays se tornam canais de audio a.k.a Multichannel Expansions
 { SinOsc.ar( [400, 402] ) }.play;
-400!2
+
+* saiba mais em:
+HelpBrowser.openHelpFor("Guides/Multichannel-Expansion");
+
 { SinOsc.ar( 400!2 ) }.play;
 { [ SinOsc.ar(400), SinOsc.ar(500) ] }.play;
 { [ SinOsc.ar(200) * 0.2, Dust.ar(400) ] }.scope;
@@ -53,67 +57,17 @@ x = { SinOsc.ar([332, 334]) * 0.1 }.play;
 x.free;
 
 
-			// tasks: time scheduling on the client
-(
-Task({
-	inf.do({
-		x.set(\freq, 300 + 200.rand);
-		0.2.wait;
-	});
-}).play;
-)
+Experimente outros sons avaliando direto na janela do Sistema de Ajuda. Desca direto para os exemplos, que em geral ficam na última parte da documentacao.
+saiba mais em:
 
-///////////////////////////////////////////////////////////////////////////////////
-
-
-
-"Pattern Guide".help;
-
-Pbind(\note, Pseq((0..7)), \dur, 1/8).play;
-
-Pbind(\degree, Pseq((0..7)), \dur, 1/8).play;
-
-///// moment in the restaurant:
-//// load a library with a lot of so-called synthdefs
-"../libs/_SynthLib.scd".resolveRelative.openOS;
-
-"../libs/_SynthLib.scd".loadRelative;
-
-
-q.synthDefs.cs; // that many
-q.tonalDefs.cs; // the ones with frequency input / pitch
-
-(instrument: 'grainXLine').play;
-(instrument: 'grainSine', amp: 0.5, sustain: 0.02).play;
-
-// try one of them:
-(
-Pbind(
-	\instrument, \Mridangam,
-	\degree, Pseq((0..7)),
-	\dur, 1/8
-).play;
-)
-
-(\instrument: \Mridangam, degree: 12).play;
-
-(
-Ndef(\sins).fadeTime = 3;
-Ndef(\sins, {
-	Splay.ar(
-		SinOsc.ar({ exprand(50, 2000) }!12)
-	) * 0.1
-}).play;
-)
-
-(
-Tdef(\sins, {
-	loop {
-		Ndef(\sins).rebuild;
-		exprand(5, 20).wait;
-	}
-}).play;
-)
-
-Tdef(\sins).stop;
-Ndef(\sins).end;
+Blip.help;
+Formant.help;
+DynKlang.help;
+Impulse.help;
+Klang.help;
+Pulse.help;
+Saw.help;
+SinOscFB.help;
+SyncSaw.help;
+VOsc.help;
+VarSaw.help;
