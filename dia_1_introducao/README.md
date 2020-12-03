@@ -1,7 +1,5 @@
 # Introdução
 
-> SuperCollider é uma plataforma para síntese de áudio e composição algorítmica, usada por músicos, artistas e pesquisadores que trabalham com som. É um software gratuito e de código aberto disponível para Windows, macOS e Linux
-
 ## O SuperCollider apresenta três componentes principais
 
 ## scsynth
