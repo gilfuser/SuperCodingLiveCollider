@@ -53,6 +53,8 @@ Cmd + Return // avaliar um bloco. Pode ser texto selecionado ou...
 ().class;
 )
 
+().play
+
 
 Cmd + . // Panic Button (Pára o som e outros processos)
 
@@ -79,6 +81,11 @@ um comentário e pode ter várias linhas
 */
 123 / 456
 )
+
+Cmd + Shift + Espaço
+Clique entre os parêntesis onde vao os argumentos de um objeto para saber quais são.
+teste aqui:
+SinOsc.ar()
 
 ///////////////////////////////////////////////////////////////
 
