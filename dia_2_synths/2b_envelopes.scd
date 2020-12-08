@@ -134,7 +134,7 @@ Env.help;
 
 Se você quer finalmente saber como testar e tocar os sons que está criando
 em sequências e/ou camadas, continue por aqui:
-"../dia_3/3a_routines-e-tasks.scd".resolveRelative.openOS;
+"../dia_3_routines-tasks-jitlib/3a_routines-e-tasks.scd".resolveRelative.openOS;
 
 Se você quer saber como fazer SynthDefs que funcionam com o FoxDot "https://foxdot.org"
 por favor, por aqui:
