@@ -1,12 +1,12 @@
 // Intro ao SuperCollider
 
 // NOTA:
-Há muito a ser dito. Mesmo para uma introducao.
-Ao final de cada parte há um "saiba mais em" que leva algumam documentacao do próprio sistema de ajuda.
-Use essas indicacoes se tiver especial curiosidade sobre o assunto, se nao, siga em frente.
+Há muito a ser dito. Mesmo para uma introdução.
+Ao final de cada parte há um "saiba mais em" que leva a alguma documentação do próprio sistema de ajuda.
+Use essas indicações se tiver especial curiosidade sobre o assunto, se não, siga em frente.
 
 * uma linguagem de alto nível modelada em Smalltalk
-* feito para música / síntese e controle de som,
+* feita para música / síntese e controle de som,
   gráficos simples
   GUIs baseadas em Qt
 
@@ -26,7 +26,7 @@ discreto        -       contínuo
 números         -       sinais
 dados           -       buffer
 agendamento     -       envelopes
-objetos         -       geradores de unidades
+objetos         -       geradores de unidades (UGen)
 mensagens       -       patching
 
 saiba mais em:
@@ -49,7 +49,7 @@ Cmd + Return // avaliar um bloco. Pode ser texto selecionado ou...
 10 + 20;
 4567;
 "Oooooi!".postln;
-1 + 3; // note o ponto-vírgula. Ele tem que vir no final de cada linha.
+1 + 3; // o ponto-vírgula tem que vir no final de cada linha quando uma outra abaixo for executada no mesmo comando.
 ().class;
 )
 
@@ -83,18 +83,18 @@ um comentário e pode ter várias linhas
 )
 
 Cmd + Shift + Espaço
-Clique entre os parêntesis onde vao os argumentos de um objeto para saber quais são.
+Clique entre os parênteses onde vao os argumentos de um objeto para saber quais são.
 teste aqui:
-SinOsc.ar()
+SinOsc.ar(   )
 
 ///////////////////////////////////////////////////////////////
 
-* tudo é um objeto, tudo é uma classe POO (Programacao Orientada ao Objeto)
+* tudo é um objeto, tudo é uma classe POO (Programação Orientada ao Objeto)
 
 * os objetos entendem mensagens
 // Coisas a serem feitas = Métodos (Methods): (menssagens) diga a um objeto para fazer algo
 
-objeto.menssagem(argumento);
+objeto.menssagem(argumento); // "argumento" no SC é mesmo que um parâmetro
 
 1.dump;
 [0, 2, 3, 4].dump;
@@ -120,7 +120,7 @@ div(101, 2);
 
 1
 1.618034
-pi // avalie essa linha e veja na Post Window, no canto inferior direito
+pi // execute essa linha e veja na Post Window, no canto inferior direito
 0.5pi
 
 // Números entendem muitas operações matemáticas:
@@ -129,8 +129,9 @@ pi // avalie essa linha e veja na Post Window, no canto inferior direito
 1 + 2.0;
 3 / 4;
 13 % 5;
-1 + 2 * 4; // avaliado sempre da esquerda para a direita
-1 + (2 * 4); // na dúvida use parênteses
+1 + 2 * 4; // executado sempre da esquerda para a direita
+(1 + 2) * 4; // na dúvida use parênteses
+1 + (2 * 4); // forçar da direita para a esquerda
 
 2 ** 3;
 2 ** 0.5;
@@ -153,7 +154,7 @@ $g
 $g.ascii
 $g.dump
 
-// Strings sao textos (feitos de Chars) entre aspas
+// Strings são textos (feitos de Chars) entre aspas
 
 "abcde".dump;
 "abcde".at(3);
@@ -172,7 +173,7 @@ $g.dump
 
 [ "lala", 1, 1.5, \istoSim, pi, ().play ]
 
-// acesse casa elemento pelo seu índice (posicao na array)
+// acesse casa elemento pelo seu índice (posição na array)
 
 [ "lala", 1, 1.5, \istoSim, pi, ().play ][2]
 ou:
@@ -200,10 +201,10 @@ ou:
 
 List[ 1, 2, 3 ];
 
-// Set é um tipo de colecao desordenado, que nao admite repeticoes.
+// Set é um tipo de coleção desordenado, que nao admite repetiçoes.
 Set[1, 2, 3, 1];
 
-// Dictionaries (Dictionários), na verdade Eventos (Events): colecao de pares chave-valor
+// Dictionaries (Dictionários), na verdade Eventos (Events): coleção de pares chave-valor
 (a: 1, b: 2, c: 3);
 
 -- saiba mais em:
@@ -214,7 +215,7 @@ Event.help;
 -- visao geral:
 HelpBrowser.openHelpFor("Overviews/Collections")
 
-// Para acessarmos colecoes mais de uma vez precisamos armazená-las em...
+// Para acessarmos coleçoes mais de uma vez precisamos armazená-las em...
 
 
 //////////////////////// Variáveis ////////////////////////////////
@@ -233,7 +234,7 @@ Nao é permitido:
 
 ************      variáveis locais       ******************
 
-// em um escopo específico, em um bloco de texto como abaixo, ou uma funcao
+// em um escopo específico, em um bloco de texto como abaixo, ou uma função
 (
 var abc = 13; // Cmd + Return aqui
 abc + 100;
@@ -241,7 +242,7 @@ abc + 100;
 
 ************* variáveis globais: a - z ********************
 
-// sao as mais simples
+// são as mais simples
 
 a; // retorna nil porque ainda nao contém nada
 a = 42;
@@ -279,10 +280,10 @@ zahl1 = 23;	// erro
 ~zahl1
 ~zahl2.dump
 
-saiba porque nao sao exatamente globais aqui:
+saiba porquê não sao exatamente globais aqui:
 Environment.help;
 
-Há uma terceira opcao de variáveis globa... globalóides. A seguir:
+Há uma terceira opção de variáveis que utilizam propriedades do objeto Event. Veja a seguir:
 
 //////////////////////////////////////////////////////////////////
 
@@ -293,7 +294,7 @@ Há uma terceira opcao de variáveis globa... globalóides. A seguir:
 q = (); // dê um nome para poder acessá-lo
 
 // para nao perder acidentalmente o conteúdo de q ao redefeni-lo.
-q = q ? ();
+q = q ? (); // a = a ? b significa: se a não for 'nil' a = a (ou seja, nada muda), se a for sim 'nil' a = b
 * saiba mais em:
 HelpBrowser.openHelpFor("Overviews/SymbolicNotations");
 
@@ -314,7 +315,7 @@ q.blip = { |ev| ev.postln; { Blip.ar(200, ev.myNumber) * XLine.kr(1, 0.01, 0.5, 
 q.blip;		// usa a variável contida no objeto
 
 
-// Pode fazer objetos em tempo real através da adição de estado e comportamento!
+// Com Event pode-se fazer objetos em tempo real através da adição de estado e comportamento!
 
 q = ();
 q.syndefs = ();
@@ -360,8 +361,8 @@ g.value;
 ~my3numbers
 
 Funções geralmente têm "argumentos":
-algo que entra na função para controlar o que acontece.
-uma Interface, uma Janela, um Canal_de_comunicacao da funcao com o mundo fora dela
+algo que entra na função para controlar o que acontece. Parâmetros.
+Uma Interface, uma Janela, um Canal_de_comunicação da função com o mundo fora dela
 
 ~square = { arg num; num * num };
 
@@ -378,7 +379,7 @@ uma Interface, uma Janela, um Canal_de_comunicacao da funcao com o mundo fora de
 };
 )
 
-~square.value;	// nao falha
+~square.value;	// não falha
 ~square.value(9);
 
 * saiba mais em:

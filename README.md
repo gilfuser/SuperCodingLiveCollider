@@ -5,13 +5,13 @@ Se você ainda nao instalou o SuperCollider veja como em [dia 0](./dia_0_install
 
 ## Sobre esse repositório
 
-Aqui está documentado, organizado e revisado o conteúdo dado no workshop/oficina em dezembro de 2020.
+Aqui está documentado, organizado e revisado o conteúdo dado na oficina em dezembro de 2020.
 
 O conteúdo está divido pelos dias em que os seus tópicos foram abordados. Em cada pasta nomeada conforme dia e assunto encontram-se as explicações, referências, dicas e conceitos sobre o assunto ali tratado e um ou mais arquivos `.scd` para serem abertos no próprio SuperCollider para experimentação e testes.
 
 Há duas maneiras de usar esses arquivos `.scd` e esse repositório como um todo: online e offline.
 * **online**:
-    * clique no link para o arquivo e em `raw`
+    * clique no *link* com o nome do arquivo (ex. na pasta [dia_1_introducao/1a_introducao.scd](dia_1_introducao/1a_introducao.scd)) e em depois em **Raw**
 ![veja o arquivo "raw"](./img/raw.png)
     * a página aparecerá algo como essa
     ![selecione, copie e cole na SC_IDE o conteúdo do arquivo](./img/raw2.png)

@@ -1,8 +1,8 @@
 
 //// LIGADO AO SOM!
-//// Para isso, o SuperCollider possui um assim chamado "servidor",
+//// Para isso, o SuperCollider possui um assim-chamado "servidor" de som,
 //// um segundo programa que faz toda a geração de som.
-//// isso geralmente é armazenado na variável global s
+//// geralmente pode ser acessado através da variável global s
 
 s.dump;
 s.boot; // diga ao servidor para iniciar
@@ -15,7 +15,8 @@ são então compiladas e enviadas ao servidor
 
 { SinOsc.ar }.play;
 
-    // pare síntese com Cmd + .
+// use Cmd + . (ponto) entre um teste e outro.
+// Mais adiante você encontrará formas mais flexíveis e dinâmicas de fazer testes
 
 { SinOsc.ar(200) }.play;
 
@@ -40,7 +41,7 @@ HelpBrowser.openHelpFor("Tutorials/Getting-Started/06-Presented-in-Living-Stereo
     // acesse a função através de uma variável (x)
 x = { arg freq=200; Impulse.ar(freq) * 0.1 }.play;
 
-// assim nao precisa mais de Cmd + . para pará-la
+// assim nao precisa de Cmd + . para pará-la
 x.free;
 
 x = { SinOsc.ar([332, 334]) * 0.1 }.play;
@@ -71,7 +72,7 @@ SyncSaw.help;
 VOsc.help;
 VarSaw.help;
 
-Quando usamos o método 'play' em uma funcao ela é automagicamente transformada em uma SynthDef e instaciada em um Synth.
+Quando usamos o método 'play' em uma função ela é automagicamente transformada em uma SynthDef (a definição de um sintetizador) e instaciada em um Synth (o sintetizador em si).
 
 * saiba mais em:
 HelpBrowser.openHelpFor("Tutorials/Getting-Started/04-Functions-and-Other-Functionality");
