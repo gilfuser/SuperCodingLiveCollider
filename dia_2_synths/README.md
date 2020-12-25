@@ -1,0 +1,1 @@
+TODO: escrever sobre a importância dos Sintetizadores no SC. O que sao SynthDefs, Synths, brevemente Ndefs, rates e Busses, scope, plot, envelopes

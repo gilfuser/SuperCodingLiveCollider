@@ -1,0 +1,1 @@
+Todo: clocks (beats, tempo), schedule, wait e yield, JITLib (as diferentes formas [Ndef, NodeProxy e ProxySpace], Ndef, Tdef e Pdef)

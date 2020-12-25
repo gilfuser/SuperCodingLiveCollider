@@ -1,5 +1,5 @@
 # SuperCodingLiveCollider
-Workshop introdutório sobre [SuperCollider](https://supercollider.github.io) com um olho na Codificação ao Vivo
+Workshop introdutório sobre [SuperCollider](https://supercollider.github.io)
 
 Se você ainda nao instalou o SuperCollider veja como em [dia 0](./dia_0_install-party). Se tiver qualquer problema, por favor, relate-o na sessao [Discussions](https://github.com/gilfuser/SuperCodingLiveCollider/discussions) desse repositório. Aliás, relate ali qualquer dúvida sobre qualquer assunto tratado aqui.
 
@@ -8,6 +8,8 @@ Se você ainda nao instalou o SuperCollider veja como em [dia 0](./dia_0_install
 Aqui está documentado, organizado e revisado o conteúdo dado na oficina em dezembro de 2020.
 
 O conteúdo está divido pelos dias em que os seus tópicos foram abordados. Em cada pasta nomeada conforme dia e assunto encontram-se as explicações, referências, dicas e conceitos sobre o assunto ali tratado e um ou mais arquivos `.scd` para serem abertos no próprio SuperCollider para experimentação e testes.
+
+Se já instalou o SC vá para o SuperCollider IDE e teste os `.scd` tendo o texto das pastas, os `README.md` como referência conforme a curiosidade surgir, se experimentar alguma dificuldade ou para entender melhor os exemplos dos `.scd`. Em muitos caso até explicações e referências se repetem nos dois formatos. Se ainda nao instalou vá para a pasta [dia_0_install-party](./dia_0_install-party)
 
 Há duas maneiras de usar esses arquivos `.scd` e esse repositório como um todo: online e offline.
 * **online**:
@@ -38,9 +40,12 @@ Há duas maneiras de usar esses arquivos `.scd` e esse repositório como um todo
 * [a "nova temporada"](https://www.youtube.com/playlist?list=PLPYzvS8A_rTZmJZjUtMG6GJ2QkLUEaY4Q)
 * [o canal da S4NTP no YouTube](https://www.youtube.com/channel/UCFRw4fgQb7dqRXuZ5lxwi3g)
 
+### Colaboração
+
+Ao escrever e organizar esse registro tento encontrar o equilíbrio entre ser simples sem ser simplista, ser acessível e concetualmente correto, ser completo sem ser prolixo, ser prático sem ser superficial. Esse equilíbrio, porém, nao é possível sem ter a referência das pessoas curiosas e/ou interessadas em usar esse material para aprender SuperCollider e que por ventura tenham sentido alguma dificuldade, tenham uma observação sugestão, algum comentário, ou tenham notado um problema. Se tiver alguma intimidade com o GitHub pode enviar um Pull Request, que será muito bem-vindo.
+
 ### Agradecimentos
 
 Agradeço aos mestres `["Alberto de Campo", "Fredrik Orlofson", "Hannes Hoelzl"].scramble` e a S4NTP toda.
 Muito do material que está aqui é compilado adaptado ou inspirado em oficinas e aulas dessas pessoas. Há também material vindo das video-aulas de Eli Fiedsteel e no excelente texto **Uma Gentil Introdução ao SuperCollider** de Bruno Ruviaro.
 Agradeco em geral à toda comunidade do *mailing-list* sc-users. Nenhuma outra comunidade em torno de linguagem ou ‘software’ me foi tão paciente, simpática, porém séria, acolhedora e prestativa quanto essa.
-
