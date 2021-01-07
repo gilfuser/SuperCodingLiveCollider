@@ -29,13 +29,13 @@ Nos Macs há a tecla `Cmd`, que é equivalente ao `Ctrl` dos Linux e Windows. Pa
 
 |      atalho     |                           efeito                          |
 |-----------------|-----------------------------------------------------------|
-| Cmd + b         |     Inicia o servidor de som. É o mesmo que `s.boot`      |
+| Cmd + B         |     Inicia o servidor de som. É o mesmo que `s.boot`      |
 |  Shift + Return |        executa uma linha (use para testar exemplos)       |
 |   Cmd + Return  |          executa um bloco, ex. entre parêntesis           |
 |     Cmd + .     |   **Panic Button!** interrompe o som e outros processos   |
-| Cmd + d <br/>(sobre uma palavra) | abre a referência sobre a palavra no sistema de ajuda |
-| Cmd + Shift + d |   abre uma janela onde se insere um termo a ser buscado   |
-| Cmd + Shift + p |                  limpa a **post window**                  |
+| Cmd + D <br/>(sobre uma palavra) | abre a referência sobre a palavra no sistema de ajuda |
+| Cmd + Shift + D |   abre uma janela onde se insere um termo a ser buscado   |
+| Cmd + Shift + P |                  limpa a **post window**                  |
 |  Cmd + /  |Comenta ou *descomenta* uma linha ([saiba mais](./1a_introducao.scd))|
 | Cmd + Shift + Espaço |     mostra os parâmetros (argumentos) de uma UGen    |
 
@@ -43,8 +43,8 @@ Esses e outros atalhos podem ser encontrados no menu **Edit / Preferences** e en
 
 ## Saiba mais
 
-O tutorial "Getting Started" no Sistema de Ajuda tem tudo o que é mostrado aqui e mais. É um ótimo ponto de partida.
+O tutorial “Getting Started” no Sistema de Ajuda tem tudo o que é mostrado aqui e mais. É um ótimo ponto de partida.
 
 Acesse diretamente do SCIDE <br/>
 `HelpBrowser.openHelpFor("Tutorials/Getting-Started/00-Getting-Started-With-SC");` <br/>
-ou do navegador [aqui](https://doc.sccode.org/Tutorials/Getting-Started/00-Getting-Started-With-SC.html).
+ou acesse do navegador [aqui](https://doc.sccode.org/Tutorials/Getting-Started/00-Getting-Started-With-SC.html).

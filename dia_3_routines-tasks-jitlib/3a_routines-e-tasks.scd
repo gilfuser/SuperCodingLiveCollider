@@ -10,19 +10,20 @@ TempoClock // é esse que vamos usar para fazer música
 AppClock // serve mais para GUIs
 
 (
-r = Routine( {
-    postln( "oi" );
-    wait(1);
-    postln( "que?" );
-    1.wait;
-    postln( "olá mundo" );
-    wait(1);
-    postln( "heim?" );
-    wait(1);
-    postln( "deixa pra lá" );
-    wait(1);
-    postln("fim");
-} )
+r = Routine(
+    {
+        postln( "oi" );
+        wait(1);
+        postln( "que?" );
+        1.wait;
+        postln( "olá mundo" );
+        wait(1);
+        postln( "heim?" );
+        wait(1);
+        postln( "deixa pra lá" );
+        wait(1);
+        postln("fim");
+    }
 )
 )
 
@@ -42,7 +43,7 @@ r.next
 //eventualmente o resultado será 'nil'. porque não há um next (próximo) passo
 
 // essa não tem fim: inf == infinito
-   NÃO ESQUEÇA DE 'wait' entre os passos,
+   NÃO ESQUEÇA DO 'wait' entre os passos,
 // ou todos os passos aconteceram infinitas vezes
 // em um único instante.
 // ou seja, seu computador pode travar.
@@ -50,9 +51,9 @@ r.next
 r = Routine( {
     inf.do{
     postln( "que?" );
-    1.wait;
+    1.wait; // pode ser assim
     postln( "olá mundo" );
-    wait(1);
+    wait(1); // ou assim
     postln( "heim?" );
     wait(1);
     postln( "deixa pra lá" );
@@ -74,23 +75,8 @@ SynthDef(\simples, { | out = 0, freq = 220, width = 0.5, amp = 0.2, gate = 1, ip
 }).add
 )
 
-Estilo convencional/careta:
-
-Synth(\simples, [width: rand(1.0)]);
-
-Estilo Event
-
-().play
-
-(instrument: \simples, iphase: rand(1.0), width: rand(1.0) ).play
-
-
-
-Event é bem interessante. E atravessa tudo ou quase tudo do que falaremos daqui pra diante
-veja em
-Event.help;
-
-// cria e roda ao mesmo tempo
+// cria e roda uma Routine ao mesmo tempo.
+// dentro da funcao cria sintetizadores no estilo Event a partir da SynthDef acima.
 (
 Routine.run(
     {

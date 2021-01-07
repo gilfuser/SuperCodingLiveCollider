@@ -47,5 +47,5 @@ Ao escrever e organizar esse registro tento encontrar o equilíbrio entre ser si
 ### Agradecimentos
 
 Agradeço aos mestres `["Alberto de Campo", "Fredrik Orlofson", "Hannes Hoelzl"].scramble` e a S4NTP toda.
-Muito do material que está aqui é compilado adaptado ou inspirado em oficinas e aulas dessas pessoas. Há também material vindo das video-aulas de Eli Fiedsteel e no excelente texto **Uma Gentil Introdução ao SuperCollider** de Bruno Ruviaro.
-Agradeco em geral à toda comunidade do *mailing-list* sc-users. Nenhuma outra comunidade em torno de linguagem ou ‘software’ me foi tão paciente, simpática, porém séria, acolhedora e prestativa quanto essa.
+Muito do material que está aqui é compilado adaptado ou inspirado em oficinas e aulas com essas pessoas. Há também material vindo das video-aulas de Eli Fieldsteel e no excelente texto **Uma Gentil Introdução ao SuperCollider** de Bruno Ruviaro.
+Agradeço, em geral, à toda a comunidade da lista de discussão sc-users. Nenhuma outra comunidade em torno de linguagem ou ‘software’ me foi tão paciente, simpática, porém séria, acolhedora e prestativa quanto essa.
