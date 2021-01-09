@@ -157,9 +157,24 @@ t.stop;
 
 ## Biblioteca de programação Em Cima da Hora
 
+"Passageiro para motorista de táxi: leve-me ao número 37.
+Darei a você o nome da rua quando chegarmos lá."
+
+```supercollider
+  // complete o pacote
+  // instale isso (caso ainda nao o tenha feito):
+  (
+  if ( not(Quarks.isInstalled("JITLibExtensions")) )
+  {
+  Quarks.install("JITLibExtensions");
+  thisProcess.recompile;
+  };
+  )
+```
+
 Máxima flexibilidade no SuperCollider.
 
-JITLib é sobre *proxies*. Veja em [3b_jitlib.scd](3b_jitlib_Defs.scd) breves explicações e o que isso significa na prática. Note que usamos mais frequentemente `Ndef`, `Tdef`, `Pdef` e `Pdefn`. Essas classes têm equivalentes que poderiam, com algumas diferenças sintáticas serem usadas. A saber:
+JITLib é sobre *proxies*. Note que usamos mais frequentemente `Ndef`, `Tdef`, `Pdef` e `Pdefn`. Essas classes têm equivalentes que poderiam, com algumas diferenças sintáticas serem usadas. A saber:
 
 | Defs | Proxies - nível profundo | Ambientes |
 | ---- | --- | --- |
