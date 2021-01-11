@@ -2,42 +2,65 @@
 
       ************************ ProxySpace *****************************
 
-ProxySpace é um ambiente que retorna NodeProxies. Na prática funciona muito parecido com Ndef
+ProxySpace é um ambiente especial para NodeProxies
+Variáveis de ambiente, aquelas que comecam com ~
+ex. ~foo
+viram NodeProxies
 
-Compare com
+Compare este arquivo com
+Document.open(thisProcess.nowExecutingPath.dirname ++ "/3b_jitlib_ndef.scd"); // execute essa linha
+e perceba que NodeProxies criadas em um ProxySpace sao equivalentes a Ndefs
 
-Document.open(thisProcess.nowExecutingPath.dirname ++ "/3b_jitlib_ndef.scd");
 
-Ainda no ambiente "normal" (topEnvironment) se você usa variáveis ambiente assim:
 
+// Ainda no ambiente "normal" (topEnvironment) se você usa variáveis ambiente assim:
 ~lala = { Blip.ar( 70, MouseX.kr(2, 100, 1)) };
 ~abc = 7;
 
-currentEnvironment.postln; // os valores estao armazenados no ambiente
+// os valores estao armazenados no ambiente
+currentEnvironment.postln;
 
 ~lala.class; // Function
 ~abc.class; // Integer
 
+saiba mais em:
+Environment.help;
+
 p = ProxySpace(s.boot, p);
 
-// push substitui o ambiente atual (currentEnvironment) pelo ProxySpace
+q.pxMixer = ProxyMixer(p, 8); // espaco para 8 proxies
+q.pxMixer.parent.alwaysOnTop_(true);
+// Se você tiver JITLibExtensions instalado. ProxyMeter para ver os níveis dos proxies:
+if (\ProxyMeter.asClass.notNil) { ProxyMeter.addMixer(q.pxMixer); };
+
+// para que os proxys em p se adaptem ao número desejado de saídas de áudio.
+// O default sao duas (stereo)
+p.reshaping = \elastic;
+
+p.play; // cria NodeProxy ~out
+
+// push faz com que entremos no ambiente do ProxySpace
 p.push;
 
 // assume que é audio rate, dois canais
-~test.play;
+
+~test.play; ~test = { Blip.ar( 70, MouseX.kr(2, 100, 1), 0.5) };
+
+~test = { Blip.ar( 70, [MouseX.kr(2, 100, 1), MouseY.kr(2, 100, 1)], 0.5) };
 
 // Nao se pode definir o conteúdo e usar o método play de uma só vez como nas Ndefs. ex:
 // ~test = { ... }.play; // ERRO!
-
-~test = { Blip.ar( 70, MouseX.kr(2, 100, 1)) };
 
 ~test.class; // NodeProxy
 ~test.source.class; // Function
 
 ~test = { Pulse.ar([20, 19.9], 0.1) * 0.1 };
 
+    ******** fading *********
+
 ~test.fadeTime = 0.5;
 
+// mude o conteúdo. O tempo de transicao é ditado pelo método fadeTime
 ~test = { Pulse.ar(exprand(50!2, 200), 0.1) * 0.2 };
 ~test = { Blip.ar(exprand([50, 25], 200), 5) * 0.2 };
 ~test = { Blip.ar({exprand(50, 200)}!2 * 0.5, rrand(5, 15 )) * 0.2 };
@@ -45,41 +68,52 @@ p.push;
 ~test.rebuild; // exprand escolherá um novo número
 
 ~test.fadeTime = 4;
+// teste de novo as versoes de ~test acima
 
+// play/stop iniciam e interrompem o monitoramento do proxy
+// nao interferem nos estados internos dele
 ~test.stop;
-~test.play;
-~test.release; // apaga o conteúdo no espaço reservado
+// o argumento vol ajusta o volume do monitoramento
+~test.play(vol: 0.5);
+~test.vol = 1;
+
+
+// apaga o conteúdo no proxy após fade out também ditado pelo fadeTime
+~test.release;
+// envia um novo Synth. Veja que os valores gerados por exprand nao mudam
+// porque o o Synth já foi criado
+~test.send;
+
+~test = { Blip.ar({ExpRand(50, 200)}!2 * 0.5, Rand(5, 15 )) * 0.2 };
+
+~test.send;
+// agora sim os valores mudam, porque estao sendo gerados por UGens
+// que geram novos números a cada intância
 
 (
 ~test = { arg freq = 40, amp = 0.3;
     LPF.ar( Pulse.ar ( [freq, freq * 1.01], 0.05 ), 1000 ) * amp
 };
 )
-
-
-			// mude valores enquanto roda. teste várias vezes
+    ******** set *********
+			// muda valores enquanto roda. teste várias vezes
 ~test.set(\freq, exprand(40, 400), \amp, 0.3);
 
 ~test = { arg freq = 40, amp = 0.8; Impulse.ar( [freq, freq * 1.01] ) * amp };
 ~test = { arg freq = 40, amp = 0.1; Saw.ar( freq!2, amp ) * amp };
 ~test = { arg freq = 40, amp = 0.1; Pulse.ar( [freq, freq * 1.01], 0.02, amp) };
 
-    // mapping
 
+    ******* mapping *******
+
+// um Control Proxy (control rate)
 ~mod = { LFSaw.kr(0.25, 1).exprange(88, 880) };
+// usado para controlar um parâmetro de outro proxy
+~filter.map(\freq, ~mod);
+~test.unmap(\freq); // desliga
 
-~test.map(\freq, ~mod);
-~test.unmap(\freq)
 
-    // fading
-
-~test.fadeTime = 3;
-
-// teste algumas das versoes de ~test acima
-
-~test.end(3); // fade out
-
-// Rotas de áudio
+    ******** Rotas de áudio *********
 
 ~filter.play;
 
@@ -88,6 +122,8 @@ p.push;
 ~pulse = { Pulse.ar( [80, 121], [0.3, 0.7], 0.5) };
 
 ~filter <<> ~pulse; // agora sim. in - é automático.
+
+~filter.map(\fco, ~mod);
 
 // para parâmetros nao automáticos
 (
@@ -104,34 +140,28 @@ p.push;
 //para desfazer o caminho para um input
 ~filter <<>.in1 nil;
 
-// reshaping elastic permite que os proxys em um ProxySpace se adaptem ao número desejado de saídas de áudio
-p.reshaping = \elastic;
-
-// proxies podem ser usadas como UGens!
+// proxies podem ser usadas diretamente como UGens!
 
 ~dust = { Ringz.ar( Dust.ar(10), [ 300, 400, 450], 0.2 ) * 0.1 };
 
-// note .ar (audio rate) ~dust.ar está sendo usada como fonte de áudio
-~rev = { CombL.ar( ~dust, 0.1, 0.03, 1) };
-~rev.play;
+// note que ~dust está sendo usada como fonte de áudio (ar)
+~rev = { CombL.ar( ~dust, 0.1, 0.03, 1) }; ~rev.play;
 
-~rev = { CombL.ar( ~dust, 0.1, [0.01, 0.03, 0.02], 5) };
+~rev = { ( CombL.ar( ~dust, 0.1, [0.01, 0.03], 5) ) };
 
 ~dust.play;
 ~dust.scope;
-~dust.clear;
+~dust.clear(4);
 ~rev.clear;
 
 ~rev.stop;
 
-~mod.clear
 ~mod = { LFNoise0.kr([1, 1.5]).exprange(0.065, 1.5) };
 
-// note o .kr (control rate) ~mod).kr está sendo usada como modulador.
-~x = { |freq = 220| Blip.ar( ~mod * freq, 6, 0.1) };
-~x.play
+// note o ~mod está sendo usada como modulador (kr)
+~x = { |freq = 220| Blip.ar( ~mod * freq, 6, 0.1) }; ~x.play;
 
-~mod = { LFNoise1.kr([1, 1.5]).exprange(0.065, 1.5) };
+~mod = { LFNoise1.kr([100, 150]).exprange(0.065, 1.5) };
 
 // Tdef -> TaskProxy
 (
@@ -153,14 +183,6 @@ Tdef(\noodle, {
 )
 
 Tdef(\noodle).pause;
-
-// GUIs (Interface Gráfica para Usuária) grátis!
-m = ProxyMixer(p, 8);
-p.do(_.play(0));
-
-// se você tiver JITLibExtensions instalado, tente ProxyMeter para ver os níveis dos proxies:
-if (\ProxyMeter.asClass.notNil) { ProxyMeter.addMixer(m); };
-
 
 ~x.end(3);
 
@@ -237,25 +259,39 @@ p.z = { p.tiririn.fold2( SinOsc.kr(1/16).range(1/32, 1/8) ) };
 
 p.tiririn.fadeTime = 0;
 
-// o argumento vol ajusta o volume do monitor da proxy, criado com o método play
-p.z.vol = 0.3;
-
                             ------------- slots ---------------
 
 Um NodeProxy pode conter vários objetos cuja ordem de execucao é determinada por um índice, que pode ser quanquer número inteiro positivo.
 
 p.push;
 
-~z.stop;
+~z.play;
 
-~z = ~y * { SyncSaw.kr(1,[1.66,1.33],0.4) }
+~z = ~y * { SyncSaw.kr(1,[1.66,1.33],0.8) }
 
-~y[0] = { SinOsc.ar(400) }
+~y[0] = { SinOsc.ar(400)*0.2 }
 
-~y[1] = { SinOsc.ar(500) }
+~y[1] = { SinOsc.ar(500)*0.2 }
 
-~y[0..4] = { SinOsc.ar( exprand(250, 1000), rand(0, 2pi) )}
+~y[0..4] = { SinOsc.ar( exprand(250, 1000), rand(0, 2pi)!2, 0.1 )}
 
-~y = nil//{SinOsc.ar(LFSaw.ar(1,0,2000,2000).trunc(500),0,0.4)}
 
+                       ------------- NodeProxy roles ---------------
+
+// adicione um filtro
+~z[1] = \filter -> { |in| Limiter.ar( BBandPass.ar( in, LFNoise2.kr(0.5).exprange(200,1000), 0.2)) }
+~z.set(\wet1, 0.5);
+
+//misture o sinal nao-filtrado e filtrado (dry e wet)
+~y.set(\wet5, 1);
+
+~y[2..4] = nil;
+
+~y[1] = \mix -> { SinOsc.ar(500)*0.2 }
+
+~y.set(\mix1, 0.2)
+
+veja mais em;
+
+HelpBrowser.openHelpFor("Reference/NodeProxy_roles")
 
