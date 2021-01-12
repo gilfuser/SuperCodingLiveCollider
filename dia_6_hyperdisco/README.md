@@ -1,1 +1,0 @@
-TODO: network music (Republic, Utopia e outras solucoes como ExtraMuros Troop, Flok, etc), sessoes de hyperdico, servidor tcposc, possibilidades de uso
