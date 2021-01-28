@@ -38,7 +38,7 @@ SynthDef(\simples, { | out = 0, freq = 220, width = 0.5, amp = 0.2, gate = 1, su
 }).add;
 
 SynthDef(\abracadabra, { |out, freq = (60.midicps), amp = 0.1, sustain = 0.8|
-	var env = Line.kr(amp, 0, sustain);
+	var env = Line.kr(amp, 0, sustain, doneAction: Done.freeSelf);
 	var snd = Saw.ar(freq + [0.3, -0.3]).sum;
 	Out.ar(out, snd * env);
 }).add;
@@ -49,7 +49,7 @@ SynthDef(\hocuspocus, { |out, freq = (60.midicps), amp = 0.1, sustain = 0.8, pan
 		Env.linen(0.1, sustain - 0.15, 0.02),
 		doneAction: 2
 	);
-	var slur = Line.kr(Rand(0.8, 0.96), 1, 0.2);
+	var slur = Line.kr(Rand(0.8, 0.96), 1, 0.2, doneAction: Done.freeSelf);
 	var freqmod = LFNoise2.kr(6).range(0.97, 1.03);
 	var snd = Formant.ar(
 		freq * slur * freqmod,

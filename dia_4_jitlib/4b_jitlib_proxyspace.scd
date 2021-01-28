@@ -3,15 +3,15 @@
       ************************ ProxySpace *****************************
 
 ProxySpace é um ambiente especial para NodeProxies
-Variáveis de ambiente, aquelas que comecam com ~
+Variáveis de ambiente, aquelas que começam com ~
 ex. ~foo
 viram NodeProxies
 
 Compare este arquivo com
 Document.open(thisProcess.nowExecutingPath.dirname ++ "/3b_jitlib_ndef.scd"); // execute essa linha
-e perceba que NodeProxies criadas em um ProxySpace sao equivalentes a Ndefs
+e perceba que NodeProxies criadas em um ProxySpace são equivalentes a Ndefs
 
-
+// ------------------------------------------------------------------------
 
 // Ainda no ambiente "normal" (topEnvironment) se você usa variáveis ambiente assim:
 ~lala = { Blip.ar( 70, MouseX.kr(2, 100, 1)) };
@@ -26,14 +26,16 @@ currentEnvironment.postln;
 saiba mais em:
 Environment.help;
 
+// ------------------------------------------------------------------------
+
 p = ProxySpace(s.boot, p);
 
-q.pxMixer = ProxyMixer(p, 8); // espaco para 8 proxies
+q.pxMixer = ProxyMixer(p, 8); // espaço para 8 proxies
 q.pxMixer.parent.alwaysOnTop_(true);
 // Se você tiver JITLibExtensions instalado. ProxyMeter para ver os níveis dos proxies:
-if (\ProxyMeter.asClass.notNil) { ProxyMeter.addMixer(q.pxMixer); };
+if (\ProxyMeter.asClass.notNil) { ProxyMeter.addMixer(q.pxMixer) };
 
-// para que os proxys em p se adaptem ao número desejado de saídas de áudio.
+// para que os proxies em p se adaptem ao número desejado de saídas de áudio.
 // O default sao duas (stereo)
 p.reshaping = \elastic;
 
@@ -60,7 +62,7 @@ p.push;
 
 ~test.fadeTime = 0.5;
 
-// mude o conteúdo. O tempo de transicao é ditado pelo método fadeTime
+// mude o conteúdo. O tempo de transição é ditado pelo método fadeTime
 ~test = { Pulse.ar(exprand(50!2, 200), 0.1) * 0.2 };
 ~test = { Blip.ar(exprand([50, 25], 200), 5) * 0.2 };
 ~test = { Blip.ar({exprand(50, 200)}!2 * 0.5, rrand(5, 15 )) * 0.2 };
@@ -68,7 +70,7 @@ p.push;
 ~test.rebuild; // exprand escolherá um novo número
 
 ~test.fadeTime = 4;
-// teste de novo as versoes de ~test acima
+// teste de novo as versões de ~test acima
 
 // play/stop iniciam e interrompem o monitoramento do proxy
 // nao interferem nos estados internos dele
@@ -113,11 +115,12 @@ p.push;
 ~test.unmap(\freq); // desliga
 
 
-    ******** Rotas de áudio *********
+    ******** rota de áudio *********
 
 ~filter.play;
 
-~filter = { MoogVCF.ar( \in.ar(0!2), \fco.kr(220, 0.2, spec: \freq.asSpec), \res.kr(1, 0.2)) }; // ainda nao faz som. Precisa de um input e `in` ainda nao contém uma funcao que gere som
+~filter = { MoogVCF.ar( \in.ar(0!2), \fco.kr(220, 0.2, spec: \freq.asSpec), \res.kr(1, 0.2)) };
+// ainda não faz som. Precisa de um input e `in` ainda não contém uma função que gere som
 
 ~pulse = { Pulse.ar( [80, 121], [0.3, 0.7], 0.5) };
 
@@ -186,43 +189,59 @@ Tdef(\noodle).pause;
 
 ~x.end(3);
 
-~tiririn.play;
-~pinpin.rebuild;
-~pinpin.play;
+
+    ******** timing *********
 
 ~tiririn = { Ringz.ar( Impulse.ar(1) ) * \amp.kr(0.2) };
+~tiririn.play;
 ~pinpin = { Ringz.ar( Impulse.ar(1), 220 ) * \amp.kr(0.2) };
+~pinpin.play;
 
-// sincronizar
-~tiririn.quant = 1;
-~pinpin.quant = 1;
+// para sincronizar adicione a um clock comum
+~tiririn.clock = TempoClock.default; ~tiririn.quant = 1.0;
+~pinpin.clock = TempoClock.default; ~pinpin.quant = 1.0;
 
-~tiririn = { Ringz.ar( Impulse.ar([1,2]) ) * \amp.kr(0.2) };
-~pinpin = { Ringz.ar( Impulse.ar([3,1.5]), 220 ) * \amp.kr(0.2) };
+~tiririn.rebuild;
+~pinpin.rebuild;
 
-// pode-se escolher um clock e a quant para todo o proxy space e os proxys nele terao a mesma configuracao
+~tiririn.clock = nil;
+~pinpin.clock = nil;
 
-p.makeTempoClock(1);
+// um clock e quant para toda o ProxySpace e os proxies nele herdarão sua configuração
+p.clock = TempoClock.default; p.quant = 1.0;
+
+~tiririn = { Ringz.ar( Impulse.ar( [1,1] ) ) * \amp.kr(0.2) };
+~pinpin = { Ringz.ar( Impulse.ar( [1,1] ), 220 ) * \amp.kr(0.2) };
+
+~tiririn.rebuild;
+~pinpin.rebuild;
+
+// makeTempoClock cria um TempoBusClock junto a um node proxy ~tempo que se mantêm sincronizados
+p.makeTempoClock(0.5);
+
+~tiririn.quant = 1.0;
+~pinpin.quant = 1.0;
 
 ~tiririn = { Ringz.ar( Impulse.ar([1,2] * ~tempo ) ) * \amp.kr(0.2) };
 ~pinpin = { Ringz.ar( Impulse.ar([3,1.5] * ~tempo ), 220 ) * \amp.kr(0.2) };
 
 p.clock.tempo = 1;
 
-~tiririn.quant = [4, 1/2]; /* offset */ ~tiririn.rebuild;
+~tiririn.quant = [4, 1/3];
+~tiririn.rebuild;
 
 (
 Tdef(\q, {
     loop {
         8.do {~tiririn.quant_([1, 1/3]).rebuild;
             1.wait;
-            ~tiririn.quant_([1, -1/2]).rebuild;
+            ~pinpin.quant_([1, 1/2]).rebuild;
             1.wait;
         };
         8.do {
             ~tiririn.quant_([1, 1/2]).rebuild;
             1.wait;
-            ~tiririn.quant_([1, -1/3]).rebuild;
+            ~pinpin.quant_([1, 1/3]).rebuild;
             1.wait;
         }
     }
@@ -240,11 +259,7 @@ ou
 
 p.know = true;
 
-(
-p.pinpin = {
-    Ringz.ar( Impulse.ar([3,1.5]), LFNoise0.kr(2!2).exprange(220, 440).lag(0.2) ) * \amp.kr(0.2)
-};
-)
+p.pinpin = { Ringz.ar( Impulse.ar([3,1.5]), LFNoise0.kr(2!2).exprange(220, 440).lag(0.2), 0.5 ) * \amp.kr(0.2) };
 
 // crie um proxy em p a partir do "lado de fora"
 p.z.play.quant = 1; // cria já tocando e sincronizável
@@ -261,7 +276,8 @@ p.tiririn.fadeTime = 0;
 
                             ------------- slots ---------------
 
-Um NodeProxy pode conter vários objetos cuja ordem de execucao é determinada por um índice, que pode ser quanquer número inteiro positivo.
+Um NodeProxy pode conter vários objetos cuja ordem de execução é determinada por um índice,
+que pode ser qualquer número inteiro positivo.
 
 p.push;
 
@@ -295,3 +311,64 @@ veja mais em;
 
 HelpBrowser.openHelpFor("Reference/NodeProxy_roles")
 
+                 ******************************************************
+                 ************** Outros Inputs Possíveis ***************
+                 ******************************************************
+
+                       ------------- synthdef ---------------
+
+// se ainda nao o fez, carregue algumas (várias) SynthDefs na biblioteca
+"../libs/_SynthLib.scd".loadRelative;
+// veja quais sao
+"../libs/_SynthLib.scd".resolveRelative.openOS;
+
+~testdef.play;
+~testdef = \simples
+
+~testdef.spawn;
+
+~testdef.spawn([\width, rand(1.0), \freq, exprand(88, 880)]);
+
+~mod = { LFTri.kr(0.08).exprange(88, 880) }
+
+~testdef.map(\freq, ~mod)
+
+fork{ 8.do { 8.do { ~testdef.spawn([\sustain, rrand(0.25, 1.25)]); [0.25, 0.125].choose.wait }; 1.wait } }
+
+                       ------------- patterns ---------------
+
+~testpat.play;
+
+~lfo = { LFNoise1.kr(0.5).exprange(180, 1800) };
+
+~testpat = Pbind( \instrument, \ana2, \degree, Pstutter(8, Pseq([-12,-10],inf)), \ffreq, ~lfo )
+
+// use clock para sincronizar
+
+~out = Pbind(\instrument, \simples, \note, -12, \legato, 0.25); ~out.play;
+
+//mais pesado, mas mais preciso
+ProxySynthDef.sampleAccurate = true;
+
+// pode ser assim (mais prático por causa do proxy ~clock)
+p.makeTempoClock(1);
+
+// ou assim. mais util se usar o mesmo clock para outras coisas além do ProxySpace
+p.clock = TempoClock.default; p.quant = 1.0;
+
+p.clock.tempo = 2
+
+~out.rebuild;
+~testpat.rebuild;
+
+// crossfade patterns
+
+~testpat.fadeTime = 4
+
+(
+~testpat = Pbind(
+    \instrument, \ana2,
+    \degree, Pstutter(8, Pseq([-12,-10],inf)) + [-2, 5].choose,
+    \ffreq, ~lfo, \dur, [0.25, 0.5].choose
+)
+)

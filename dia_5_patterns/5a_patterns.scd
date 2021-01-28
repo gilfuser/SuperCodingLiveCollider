@@ -1,5 +1,67 @@
 # Patterns
 
+Patterns definem instrucoes; Streams as executa.
+
+// Pattern é como uma receita ou partitura
+// que pode ser usada em multiplas composicoes
+
+// Routine
+Event.parentEvents.printAll
+
+Event.partialEvents.printAll
+
+~test = 234
+
+x = ()
+x = (x: 6, y: 7, play: { (~x * ~y).postln });
+x.play; // returns 6 * 7
+
+x.play
+
+a = (note: 2);
+b = (note: [3, 5]);
+Pseq([(note: 0), ()]).play;
+
+r = Routine{
+    "isto".yield;
+    "nao".yield;q
+    "é".yield;
+    "código".yield;
+    "é".yield;
+    "poesia".yield;
+}
+
+r.next;
+
+// asStream transforma internamente a Pattern em uma Routine, portanto, herda carecterísticas da classe Stream
+x = Pseq(["isto", "nao", "é", "poesia", "mas", "sim", "é", "código"]).asStream
+
+x.next;
+
+(
+    // a array para se iterar
+a = [-100, 00, 300, 400];
+    // faça a Pattern e transforme-a em um Stream
+p = Pseq(a).asStream;
+    // faça um Stream diretamente
+r = Routine({ a.do({ arg v; v.yield}) });
+    // confira os valor na 'Post window'
+5.do({ Post << Char.tab << r.next << " " << p.next << Char.nl; });
+)
+
+a = Routine {
+    (0..).do { |i|
+        i.yield;
+    };
+};
+
+a.nextN(10);
+
+a = Pseries( 0, 1, inf );
+
+a.nextN(10);
+
+
 ().play
 
 ( 'instrument': default, 'amp': 0.1, 'sustain': 0.8, 'freq': 261.6255653006 )
@@ -54,7 +116,7 @@ Pbind(
 ).play;
 )
 
-// "../libs/_SynthLib.scd".loadRelative;
+"../libs/_SynthLib.scd".loadRelative;
 
 (
 SynthDef('glisson', { | out = 0, freq = 800, freq2 = 1200, sustain = 0.01, amp = 0.5, pan = 0.0 |

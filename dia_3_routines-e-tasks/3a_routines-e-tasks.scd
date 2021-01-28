@@ -43,7 +43,7 @@ r.next
 //eventualmente o resultado será 'nil'. porque não há um next (próximo) passo
 
 // essa não tem fim: inf == infinito
-   NÃO ESQUEÇA DO 'wait' entre os passos,
+   NÃO ESQUEÇA do 'wait' entre os passos,
 // ou todos os passos aconteceram infinitas vezes
 // em um único instante.
 // ou seja, seu computador pode travar.
@@ -80,15 +80,15 @@ SynthDef(\simples, { | out = 0, freq = 220, width = 0.5, amp = 0.2, gate = 1, ip
 (
 Routine.run(
     {
-        (instrument: \simples, iphase: rand(1.0), width: rand(1.0), degree: 0 ).play;
+        (instrument: \simples, width: rand(1.0), degree: 0 ).play;
         wait(1);
-        (instrument: \simples, iphase: rand(1.0), width: rand(1.0), degree: 2 ).play;
+        (instrument: \simples, width: rand(1.0), degree: 2 ).play;
         (1/3).wait;
-        (instrument: \simples, iphase: rand(1.0), width: rand(1.0), degree: 3 ).play;
+        (instrument: \simples, width: rand(1.0), degree: 3 ).play;
         wait(2/3);
-        (instrument: \simples, iphase: rand(1.0), width: rand(1.0), degree: 5 ).play;
+        (instrument: \simples, width: rand(1.0), degree: 5 ).play;
         wait(1);
-        (instrument: \simples, iphase: rand(1.0), width: rand(1.0), degree: 7 ).play;
+        (instrument: \simples, width: rand(1.0), degree: 7 ).play;
     }
 )
 )
@@ -96,20 +96,18 @@ Routine.run(
 // assim como aqui
 (
 fork{
+    8.do{
+    (instrument: \simples, width: rand(1.0), degree: [-3,5] ).play;
     wait(1);
-    (1/3).wait;
-    wait(2/3);
-    (instrument: \simples, iphase: rand(1.0), width: rand(1.0), degree: 5 ).play;
-    wait(1);
-    (instrument: \simples, iphase: rand(1.0), width: rand(1.0), degree: 7 ).play;
+    (instrument: \simples, width: rand(1.0), degree: [5,7] ).play;
+    wait([2/3, 1/3].choose)
+    }
 }
 )
 
-degree?
-
 (
 fork{
-    [0, 2, 3, 5, 7].do{ |deg| (instrument: \simples, iphase: rand(1.0), width: rand(1.0), degree: deg.post ).play;
+    [0, 2, 3, 5, 7].do{ |deg| (instrument: \simples, width: rand(1.0), degree: deg.post ).play;
         (" = " ++ (deg + 60).midicps ++ " Hz" ).postln;
         wait(0.5);
     }
@@ -124,8 +122,8 @@ x.next;
 
 (
 {
-    Array.fib(6, 1, 1).do{ |deg| (instrument: \simples, iphase: rand(1.0), width: rand(1.0), degree: deg.postln ).play;
-        wait(w.next);
+    Array.fib(6, 1, 1).do{ |deg| (instrument: \simples, width: rand(1.0), degree: deg.postln ).play;
+        wait(w.next); // usa um Routine dentro de outra
     }
 }.fork(quant: 4)
 );
@@ -152,28 +150,29 @@ Arrays e outras coleções são ricas em métodos que podem ser usados de maneir
 * veja e teste em:
 Array.help
 
-Task funciona (quase) como Routine mas pode-se parar e retomar em qualquer momento com .pause .resume
+Task funciona (quase) como Routine mas pode-se parar e retomar em qualquer momento com os métodos
+pause e resume
 
 (
-x = Task( {
+z = Task( {
     inf.do{ |i| (instrument: \simples, degree: i%12 ).play; 1.wait; }
 }).play(quant:1)
 )
 
-x.pause;
-
-x.resume;
+z.pause;
+z.resume;
 
 (
-Task( {
+w = Task( {
     loop{ (instrument: \simples, degree: 3 ).play; 1.wait; }
 }).play(quant:1)
 )
 
-x.pause;
+z.pause;
+//retome sincronizadamente
+z.resume(quant: 1);
 
-//retome ainda sincronizada
-x.resume(quant: 1);
+z.stop; w.stop;
 
 saiba mais em:
 HelpBrowser.openHelpFor("Tutorials/Getting-Started/15-Sequencing-with-Routines-and-Tasks")
