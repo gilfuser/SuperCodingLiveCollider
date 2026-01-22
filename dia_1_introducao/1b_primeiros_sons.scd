@@ -73,7 +73,7 @@ SyncSaw.help;
 VOsc.help;
 VarSaw.help;
 
-Quando usamos o método 'play' em uma função ela é automagicamente transformada em uma SynthDef (a definição de um sintetizador) e instaciada em um Synth (o sintetizador em si).
+Quando usamos o método 'play' em uma função ela é automagicamente transformada em uma SynthDef (a definição de um sintetizador) e em um Synth (o sintetizador em si), uma unidade dele.
 
 * saiba mais em:
 HelpBrowser.openHelpFor("Tutorials/Getting-Started/04-Functions-and-Other-Functionality");
