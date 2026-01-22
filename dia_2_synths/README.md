@@ -1,10 +1,10 @@
 # SynthDef
 
-A definicão de sintetizador é encontrada em toda parte nos códigos SC. É através dela que se cria sons que podem ser reutilizados e usados em Patterns, que é assunto para outro dia.
+A SynthDef é a definicão de sintetizador e é encontrada em toda parte nos códigos SC. É através dela que se cria sons que podem ser reutilizados e transformados.
 
 
 
-Quanto testamos sons com funções, por trás das cortinas o SC criou SynthDefs, por causa do método `.play`.
+Quanto testamos sons com funções, como temos feito até aqui, por trás das cortinas o SC criou SynthDefs, por causa do método `.play`.
 
 Assim isso:
 
@@ -20,22 +20,22 @@ Ao executar aquilo vê-se isso:
 
 Mostra que foi criado um sintetizador no servidor de som.
 
-A SynthDef é composta por um nome ("temp__0" no caso acima) e uma função (especificamente uma ugenGraphFunc) que *tem que ter por último* uma UGen do tipo **Out**. Se usar taxa de áudio, ou *áudio rate* (.ar) produzirá som, se for (*control rate*) poderá ser usada para modular algum parâmetro, por exemplo. Mais sobre *rates* em instantes.
+A SynthDef é composta por um nome ("temp__0" no caso acima) e uma função  com uma ou mais UGens que geram sinais que terminam dentro de uma UGen do tipo **Out**. Se usar taxa de áudio, ou *áudio rate* (Out(sinal).ar) produzirá som, se for *control rate* (Out(sinal).kr) poderá ser usada para modular algum parâmetro, por exemplo. Mais sobre *rates* em instantes.
 
-SynthDefs servem para instruir o servidor de som sobre como produzir sons ou sinais de som. Conceitos de programação como comandos de decisão (`if true { faca isso } {se nao, isso }`) POO (Programação Orientada ao Objeto) nao fazem o menor sentido para o servidor. Por isso nao é possível usar `ifs` e outros recursos de programação dentro de SynthDefs, mas sim é possível usá-los para criar os Synths a partir delas.
+SynthDefs servem para instruir o servidor de som sobre como produzir sons ou sinais de som. Conceitos de programação como comandos de decisão ("se for verdade" `if true { faça isso } {se não, faça isso }`) POO (Programação Orientada ao Objeto) não fazem o menor sentido para o servidor. Por isso nao é possível usar `if` e outros recursos de programação dentro de SynthDefs, mas sim é possível usá-los para criar os Synths a partir delas.
 
 ## Synth
 
-A realização, a materialização de uma **SynthDef**. Análogo, a uma **instância** de uma **classe**
+O Synth é a realização, a materialização de uma **SynthDef**. A SynthDef é o projeto do sintetizador e o Synth é uma unidade dele, construída e tocando.
 
-### Exemplo minimalista da criação de um Synth, ou seja, um sintetizador
+### TODO: Exemplo minimalista da criação de um Synth, ou seja, um sintetizador
 
-#### A receita
+#### O projeto
 
 ```supercollider
 SynthDef.new(\exemplo, { Out.ar(0, Saw.ar) }).add;
 ```
-#### O bolo
+#### O produto
 
 ```supercollider
 Synth.new(\exemplo);
@@ -43,7 +43,7 @@ Synth.new(\exemplo);
 
 Pare o som com `Cmd + .` <br/>
 
-#### As partes
+#### As partes da SynthDef:
 
 `.new` é o método… para criar. Pode ser omitido.
 
