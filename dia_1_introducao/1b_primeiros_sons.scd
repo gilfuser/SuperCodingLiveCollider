@@ -20,15 +20,19 @@ são então compiladas e enviadas ao servidor
 
 { SinOsc.ar(200) }.play;
 
-{ SinOsc.ar(600) * 0.1 }.scope;	// veja saída do audio
+{ SinOsc.ar(600) }.scope;	// veja saída do audio
 
-    // calcule com UGens.
+// calcule com UGens.
+// multiplicar muda o volume, ou amplitude do som
 { SinOsc.ar * 0.2 }.play;
 
-    // Aqui, somando dois sinais e multiplicando por 0.2
+// um tipo de ruído
+{ Dust(400) }.play;
+
+// Aqui, somando dois sinais e multiplicando por 0.2
 { SinOsc.ar(300) + Dust.ar(400) * 0.2  }.scope;
 
-	// arrays se tornam canais de audio a.k.a Multichannel Expansion
+	// arrays se tornam canais de audio (Multichannel Expansion)
 { SinOsc.ar( [400, 402] ) }.play;
 
 * saiba mais em:
@@ -38,7 +42,7 @@ HelpBrowser.openHelpFor("Tutorials/Getting-Started/06-Presented-in-Living-Stereo
 { [ SinOsc.ar(400), SinOsc.ar(404) ] }.play;
 { [ SinOsc.ar(200), Dust.ar(400) ] * 0.2 }.scope;
 
-    // acesse a função através de uma variável (x)
+// acesse a função através de uma variável (x)
 x = { arg freq=200; Impulse.ar(freq) * 0.1 }.play;
 
 // assim nao precisa de Cmd + . para pará-la
@@ -47,7 +51,6 @@ x.free;
 x = { SinOsc.ar([332, 334]) * 0.1 }.play;
 x.free;
 
-// crackly noise
 x = { Dust2.ar([30, 30]) }.play;
 x.free;
 
