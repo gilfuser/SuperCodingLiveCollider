@@ -1,18 +1,16 @@
 
 //// LIGADO AO SOM!
-//// Para isso, o SuperCollider possui um assim-chamado "servidor" de som,
+//// Para isso, o SuperCollider possui um "servidor" de som,
 //// um segundo programa que faz toda a geração de som.
 //// geralmente pode ser acessado através da variável global s
 
 s.dump;
-s.boot; // diga ao servidor para iniciar
+s.boot; // diga ao servidor de áudio para iniciar
 s.scope;
 
-().play; // som de piano ruim - é uma cozinha ...
+().play; // som de piano padrão só pra testar
 
-Funções se tornam SynthDefs ao se usar o método play,
-são então compiladas e enviadas ao servidor
-
+// o método.play toca uma função
 { SinOsc.ar }.play;
 
 // use Cmd + . (ponto) entre um teste e outro.
